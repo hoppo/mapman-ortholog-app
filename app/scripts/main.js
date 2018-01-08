@@ -38,7 +38,7 @@ window.addEventListener('Agave::ready', function() {
 						},
 						success: function(data) {
 							console.log(data);
-							//showResults(data);
+							showResults(data);
 							// operate on successful data return
 						}
 					});
@@ -49,6 +49,67 @@ window.addEventListener('Agave::ready', function() {
 				}
 			});
 		}
+		
+		function showResults(data){
+			
+			if (data.status === 'success'){
+		        var mangleData=mangleJson(data);
+		        tabulate(mangleData);
+			}else{
+			      $('#mapman_orthlog_finder-messages', this).append('<div class="alert alert-danger">Genes of Interest cannot be found</div>');
+
+			}
+			
+		}
+		
+		 function mangleJson(data) {
+
+			    var result=data.result;
+
+			    console.log(result);
+
+			    var out=[];
+
+			    for (var i in result){
+			      if (i !== 'query'){
+			         var binArray=[];
+			         binArray.push(i);
+			         out.push(binArray);
+
+			         var binResult=result[i];
+
+			         for(var species in binResult){
+			            var genes = binResult[species];
+			            genes.splice(0, 0, species);
+			            out.push(genes);
+			         }
+
+			       }
+			    }
+
+			    return out;
+			  
+		 }
+		 
+		 function tabulate(data) {
+              var table = d3.select('#mapman_orthlog_finder-table').append('table');
+              var tbody = table.append('tbody');
+
+
+              var rows = tbody.selectAll('tr')
+                .data(data)
+                .enter()
+                .append('tr');
+
+              rows.selectAll('td')
+                .data(function (d) { return d; })
+                .enter()
+                .append('td')
+                  .text(function (d) { return d; });
+
+      }
+
+
 
 	});
 

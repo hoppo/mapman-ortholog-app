@@ -1,5 +1,7 @@
 {
   "name": "mapman-orthlog-finder",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "d3": "^4.12.2"
+  }
 }
