@@ -28,10 +28,10 @@
 			if (!locusString){
 				hasError = true;
 				$(this.geneLocus).parent().addClass('has-error');
-				$('#mapman_ortholog_finder-messages', this).append('<div class="alert alert-danger">Please enter a AGI code</div>');
+				$('#mapman_ortholog_finder-messages', appContext).append('<div class="alert alert-danger">Please enter a AGI code</div>');
 			}else if (locusString.split(/\s+/) > 1){
 				$(this.geneLocus).parent().addClass('has-error');
-				$('#mapman_ortholog_finder-messages', this).append('<div class="alert alert-danger">Only one gene can be entered</div>');
+				$('#mapman_ortholog_finder-messages', appContext).append('<div class="alert alert-danger">Only one gene can be entered</div>');
 				hasError = true; 
 			}
 	
@@ -48,7 +48,7 @@
 							data: queryParams,
 							error: function(err) {
 								console.log(err);
-								$('#mapman_ortholog_finder-messages', this).append('<div class="alert alert-danger">Unexpected Error occured</div>');
+								$('#mapman_ortholog_finder-messages', appContext).append('<div class="alert alert-danger">Unexpected Error occured</div>');
 							},
 							success: function(data) {
 								console.log(data);
@@ -57,7 +57,7 @@
 						});
 		
 					}else {
-						$('mapman_ortholog_finder-messages', this).append('<div class="alert alert-danger">The Query Service is currently unavailable. Please try again later.</div>');
+						$('mapman_ortholog_finder-messages', appContext).append('<div class="alert alert-danger">The Query Service is currently unavailable. Please try again later.</div>');
 					}
 				});
 			}
@@ -67,13 +67,13 @@
 				if(data.status === 'success'){
 					
 					if(data.result.hasOwnProperty('35.2')){
-						$('#mapman_ortholog_finder-messages', this).append('<div class="alert alert-info">Genes of Interest is assigned to the Unknown bin</div>');
+						$('#mapman_ortholog_finder-messages', appContext).append('<div class="alert alert-info">Genes of Interest is assigned to the Unknown bin</div>');
 					}else{
 						var mangleData=mangleJson(data);
 						tabulate(mangleData);
 					}
 				}else{
-					$('#mapman_ortholog_finder-messages', this).append('<div class="alert alert-danger">Genes of Interest could not be found</div>');
+					$('#mapman_ortholog_finder-messages', appContext).append('<div class="alert alert-danger">Genes of Interest could not be found</div>');
 				}
 			}
 			
