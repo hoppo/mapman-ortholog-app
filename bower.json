@@ -2,6 +2,9 @@
   "name": "mapman-orthlog-finder",
   "private": true,
   "dependencies": {
-    "d3": "^4.12.2"
+    "d3": "~4.12.2",
+    "underscore": "^1.8.3",
+    "datatables.net": "^1.10.16",
+    "datatables.net-dt": "^3.2.2"
   }
 }
